@@ -21,7 +21,6 @@ public class MyFrame extends JFrame  {
     private JButton createNewInvoice;
     private JButton deleteInvoice;
     private JButton createItem;
-
     private JButton deleteItem;
     private JMenuBar mb;
     private JMenu fileMenu;
@@ -185,14 +184,6 @@ public class MyFrame extends JFrame  {
         container.add(invoicesTablePanel, BorderLayout.WEST);
         container.add(newPanel, BorderLayout.EAST);
         container.add(buttonPanel, BorderLayout.PAGE_END);
-
-
-        createNewInvoice = new JButton();
-        deleteInvoice = new JButton();
-        createItem = new JButton();
-        deleteItem = new JButton();
-
-
 
     }
     public MyListener getMyListener() {
