@@ -6,24 +6,22 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Invoice {
-  private   int invNu;
+   private  int invNu;
    private Date invD;
    private String invCus;
    private double invT;
    private ArrayList <InvoiceItem> items;
 
 // Constructor
-    public Invoice(int invNu, Date invD, String invCus, double invT){
+    public Invoice(int invNu, Date invD, String invCus){
         this.invNu = invNu;
         this.invD = invD;
         this.invCus = invCus;
-        this.invT = invT;
+
 
     }
 
-    public Invoice(int number, Date dateInHeader, String customerName) {
 
-    }
 
     // getter and setter
 

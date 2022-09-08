@@ -9,13 +9,13 @@ import com.frame.tables.InvoicesTable;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 
-public class MyFrame extends JFrame implements ActionListener {
+public class MyFrame extends JFrame  {
 
 
     private JButton createNewInvoice;
@@ -39,14 +39,15 @@ public class MyFrame extends JFrame implements ActionListener {
     private JLabel invTotal;
 
 
+    private  NewCustomer newInvCustomer = new NewCustomer(this);
+    private NewPurshase newItemPurshase= new NewPurshase(this);
 
-    NewCustomer NewCustomer = new NewCustomer(this);
-    NewPurshase NewPurshase = new NewPurshase(this);
+
+
     private MyListener myListener = new MyListener(this);
     private ArrayList<InvoiceItem>items;
     private ArrayList<Invoice> invoiceList;
     private InvoicesTable invoicesTable = new InvoicesTable();
-    private  ArrayList<Invoice> invoice ;
     private InvoiceItemsTable invoiceItemsTable = new InvoiceItemsTable();
 
 
@@ -66,7 +67,7 @@ public class MyFrame extends JFrame implements ActionListener {
     public MyFrame() {
         super("Sales Invoice Generator");
 
-        setSize(1225, 580);
+        setSize(1265, 580);
         setLocation(400, 200);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -128,6 +129,7 @@ public class MyFrame extends JFrame implements ActionListener {
         cancel.addActionListener(myListener);
 
 
+
         invoiceTable = new JTable();
         invoiceTable.getSelectionModel().addListSelectionListener(myListener);
         invoiceTable.setCellSelectionEnabled(true);
@@ -145,16 +147,16 @@ public class MyFrame extends JFrame implements ActionListener {
 
 
         invoiceNo = new JLabel("Invoice Number");
-        no = new JLabel("          ");
+        no = new JLabel(":          ");
 
-        invoiceDate = new JLabel("Invoice Date");
-        invDate = new JLabel("                 ");
+        invoiceDate = new JLabel("Invoice Date: ");
+        invDate = new JLabel("         ");
 
-        customerName = new JLabel("Customer Name");
+        customerName = new JLabel("Customer Name :");
         cusName = new JLabel("                 ");
 
-        invoiceTotal = new JLabel("Invoice Total");
-        invTotal = new JLabel("          ");
+        invoiceTotal = new JLabel("Invoice Total :");
+        invTotal = new JLabel("      ");
 
 
         invoicesTablePanel.add(new JScrollPane(invoiceTable));
@@ -197,8 +199,15 @@ public class MyFrame extends JFrame implements ActionListener {
         cancel = new JButton();
 
 
+
+    }
+    public MyListener getMyListener() {
+        return myListener;
     }
 
+    public void setMyListener(MyListener myListener) {
+        this.myListener = myListener;
+    }
     public JButton getCreateNewInvoice() {
         return createNewInvoice;
     }
@@ -223,15 +232,6 @@ public class MyFrame extends JFrame implements ActionListener {
         this.createItem = createItem;
     }
 
-    public NewCustomer getNewCustomer(){return NewCustomer;}
-    public void setNewCustomer(NewCustomer newCustomer) {
-        this.NewCustomer = newCustomer;
-    }
-
-    public NewPurshase getNewPurshase(){return NewPurshase;}
-    public void setNewPurshase(NewPurshase newPurshase) {
-        this.NewPurshase = newPurshase;
-    }
 
     public Invoice getNum(int number){
         for (Invoice invoice : invoiceList){
@@ -305,23 +305,20 @@ public class MyFrame extends JFrame implements ActionListener {
     public void setItemsJTable(JTable itemsJTable) {
         this.itemsTable = itemsTable;
     }
-    public static void main(String[] args) {
 
 
-        MyFrame frame = new MyFrame();
-        frame.setVisible(true);
 
+    public NewCustomer getNewInvCustomer(){return newInvCustomer;}
+    public void setNewInvCustomer(NewCustomer newInvCustomer) {
+        this.newInvCustomer = newInvCustomer;
     }
 
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-
+    public NewPurshase getNewItemPurshase(){return newItemPurshase;}
+    public void setNewItemPurshase(NewPurshase newItemPurshase) {
+        this.newItemPurshase = newItemPurshase;
     }
 
 
     public void setInvoicesTable() {this.invoicesTable = invoicesTable;
     }
 }
-

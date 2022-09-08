@@ -4,12 +4,24 @@ import javax.swing.*;
 import java.awt.*;
 
 
+
+
 public class NewCustomer extends JDialog {
 
-    private MyListener myListener ;
+    private JLabel invNumberLabel;
+    private JLabel invNumberLabel2;
+    private JLabel createNCLabel;
+    private JTextField createNCField;
+    private JLabel invDateLabel;
+    private JTextField invDateField;
+
+    private JButton createBtn;
+    private JButton cancelBtn;
+
+private MyListener myListener ;
 
     public NewCustomer (MyFrame frame) {
-        super(frame);
+
 
 
         setLayout(new FlowLayout());
@@ -37,12 +49,13 @@ public class NewCustomer extends JDialog {
 
         createBtn = new JButton("Create New Customer");
         createBtn.setActionCommand("create");
-        createBtn.addActionListener(myListener);
+
+        createBtn.addActionListener(frame.getMyListener());
         add(createBtn);
 
         cancelBtn = new JButton("Cancel Customer");
         cancelBtn.setActionCommand("cancelCustomer");
-        cancelBtn.addActionListener(myListener);
+        cancelBtn.addActionListener(frame.getMyListener());
         add(cancelBtn);
 
 
@@ -53,17 +66,8 @@ public class NewCustomer extends JDialog {
         setResizable(false);
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        pack();
     }
-
-    private JLabel invNumberLabel;
-    private JLabel invNumberLabel2;
-    private JLabel createNCLabel;
-    private JTextField createNCField;
-    private JLabel invDateLabel;
-    private JTextField invDateField;
-
-    private JButton createBtn;
-    private JButton cancelBtn;
 
    //getter and setter
 
@@ -93,5 +97,7 @@ public class NewCustomer extends JDialog {
     public void setInvDateField(JTextField invDateField) {
         this.invDateField = invDateField;
     }
+
+
 
 }

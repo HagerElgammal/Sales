@@ -5,6 +5,8 @@ import com.frame.tables.InvoiceItem;
 import com.frame.tables.InvoiceItemsTable;
 import com.frame.tables.InvoicesTable;
 import com.frame.view.MyFrame;
+import com.frame.view.NewCustomer;
+import com.frame.view.NewPurshase;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -13,6 +15,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,6 +33,9 @@ public class MyListener implements ActionListener, ListSelectionListener {
     public static DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     private InvoicesTable invoicestable;
     private InvoiceItemsTable itemsTable;
+    private NewCustomer nCustomer;
+    private NewPurshase newPurshase;
+
 
     public MyListener(MyFrame frame) {
         this.frame = frame;
@@ -91,6 +97,52 @@ public class MyListener implements ActionListener, ListSelectionListener {
 
 
     private void saveFile() {
+        JOptionPane.showMessageDialog(frame, "Choose location for headers file...","", JOptionPane.INFORMATION_MESSAGE);
+        JFileChooser chooser = new JFileChooser();
+        try {
+            int saV = chooser.showSaveDialog(frame);
+            if (saV == JFileChooser.APPROVE_OPTION){
+                File invF = chooser.getSelectedFile();
+                FileWriter fileHW = new FileWriter(invF);
+                ArrayList<Invoice> headersList = frame.getInvoiceList();
+
+
+                String headerWords = "", records = "";
+
+                for (Invoice header: headersList){
+                    headerWords += header.toString();
+                    headerWords += "\n";
+                    for (InvoiceItem item: header.getInvItems()){
+                        records += item.toString();
+                        records += "\n";
+                    }
+                }
+
+                JOptionPane.showMessageDialog(frame, "Now choose location for invoices file...","", JOptionPane.INFORMATION_MESSAGE);
+                saV = chooser.showSaveDialog(frame);
+                File fI = chooser.getSelectedFile();
+
+                FileWriter FI = new FileWriter(fI);
+
+                headerWords = headerWords.substring(0, headerWords.length()-1);
+                fileHW.write(headerWords);
+                fileHW.close();
+
+                records = records.substring(0, records.length()-1);
+                FI.write(records);
+                FI.close();
+
+
+                JOptionPane.showMessageDialog(frame, "Save Done","", JOptionPane.INFORMATION_MESSAGE);
+                if (headersList == null) {
+                    throw new Exception("Invoices Missing");
+                }
+            }
+        }
+
+        catch (Exception exp){
+            JOptionPane.showMessageDialog(frame, "Saving Failed.", "", JOptionPane.ERROR_MESSAGE);
+        }
 
     }
 
@@ -104,10 +156,10 @@ public class MyListener implements ActionListener, ListSelectionListener {
              Path pathInvoiceHeader = Paths.get(invoiceHeader.getAbsolutePath());
              ArrayList<Invoice>invoiceList ;
              invoiceList = new ArrayList<>();
-             List<String> invoicesText;
-             invoicesText = Files.readAllLines(pathInvoiceHeader);
-             for (String invoiceText : invoicesText ){
-                 String[] data = invoiceText.split(",");
+             List<String> invoicesData;
+             invoicesData = Files.readAllLines(pathInvoiceHeader);
+             for (String invoiceData : invoicesData ){
+                 String[] data = invoiceData.split(",");
                  String firstNo = data[0];
                  String secDate = data[1];
                  String thirdCustomer = data[2];
@@ -119,7 +171,7 @@ public class MyListener implements ActionListener, ListSelectionListener {
                  invoiceList.add(invoHeader);
 
              }
-             frame.setInvoicesTable();
+             frame.setInvoiceList(invoiceList);
              JOptionPane.showMessageDialog(frame, "Now select Items file ", "", JOptionPane.WARNING_MESSAGE);
              l = fc.showOpenDialog(frame);
              if (l == JFileChooser.CANCEL_OPTION){
@@ -129,15 +181,15 @@ public class MyListener implements ActionListener, ListSelectionListener {
                  File fileOfLine = fc.getSelectedFile();
                  Path pathForLine = Paths.get(fileOfLine.getAbsolutePath());
 
-                 ArrayList<InvoiceItem> content = new ArrayList<>();
-                 List<String> linesList = Files.readAllLines(pathForLine);
+                 ArrayList<InvoiceItem> product = new ArrayList<>();
+                 List<String> itemsList = Files.readAllLines(pathForLine);
 
-                 for (String line : linesList){
-                     String[] lineWords = line.split(",");
-                     String frstNo = lineWords[0];
-                     String secItnam = lineWords[1];
-                     String thrdItPri = lineWords[2];
-                     String frthItCon = lineWords[3];
+                 for (String item : itemsList){
+                     String[] itemData = item.split(",");
+                     String frstNo = itemData[0];
+                     String secItnam = itemData[1];
+                     String thrdItPri = itemData[2];
+                     String frthItCon = itemData[3];
 
                      int numVal;
                      numVal = Integer.parseInt(frstNo);
@@ -149,7 +201,7 @@ public class MyListener implements ActionListener, ListSelectionListener {
                      InvoiceItem invLine = new InvoiceItem(invoHeader, itemName, itemPrice,itemCount);
                      invoHeader.getInvItems().add(invLine);
                  }
-                frame.setItems(content);
+                frame.setItems(product);
 
              }
              InvoicesTable inTable;
@@ -158,14 +210,40 @@ public class MyListener implements ActionListener, ListSelectionListener {
              frame.getInvoiceData().setModel(inTable);
          }
         } catch (HeadlessException | IOException | NumberFormatException | ParseException exp) {
-            JOptionPane.showMessageDialog(frame, "Failed Loading The File.\n Make sure to selected file in (.CSV) .", "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "Failed Loading CSV File.\n Please Select file in (.CSV) .", "", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-        private void deleteInvoice() {
+    private void deleteInvoice() {
+        int invID = frame.getInvoiceData().getSelectedRow();
+        if (invID != -1){
+            frame.getInvoiceList().remove(invID);
+            frame.getInvoicesTable().fireTableDataChanged();
+            frame.getItemsJTable().setModel(new InvoiceItemsTable(new ArrayList<>()));
+            frame.getNo().setText("");
+            frame.getCusName().setText("");
+            frame.getInvDate().setText("");
+            frame.getInvTotal().setText("");
+        }
     }
 
     private void newInv() {
+        nCustomer = new NewCustomer(frame);
+        nCustomer.setVisible(true);
+        try {
+            int invNo = 0;
+            for (Invoice invoice : frame.getInvoiceList()) {
+                if (invoice.getInvNu()> invNo)
+                    invNo = invoice.getInvNu();
+            }
+            invNo++;
+            nCustomer.getInvNumberLabel2().setText("" + invNo);
+        }
+        catch(Exception ep){
+            JOptionPane.showMessageDialog(frame,"Fill all the customer data first.", "", JOptionPane.ERROR_MESSAGE);
+            nCustomer.setVisible(false);
+        }
+
 
     }
 
@@ -180,9 +258,36 @@ public class MyListener implements ActionListener, ListSelectionListener {
 
     }
     private void create() {
+        int invNo = 0;
+        for (Invoice invoice : frame.getInvoiceList()){
+            if (invoice.getInvNu() > invNo)
+                invNo = invoice.getInvNu();
+        }
+        invNo++;
+        String cutstomerName = nCustomer.getCreateNCField().getText();
+        String date = nCustomer.getInvDateField().getText();
+        Date invDate = new Date();
+        try {
+            invDate = df.parse(date);
+        }
+        catch (ParseException exception) {
+            JOptionPane.showMessageDialog(frame, "Date entry should adhere to format: dd-MM-yyyy", "", JOptionPane.ERROR_MESSAGE);
+        }
+        if (cutstomerName.length()==0){
+            JOptionPane.showMessageDialog(frame, "Name cannot be empty", "", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            Invoice invHeader = new Invoice(invNo, invDate, cutstomerName);
+            frame.getInvoiceList().add(invHeader);
+            frame.getInvoicesTable().fireTableDataChanged();
+            nCustomer.dispose();
+            nCustomer = null;
+        }
 
     }
     private void cancelCustomer() {
+        nCustomer.dispose();
+        nCustomer = null;
     }
 
     private void cancelItem() {

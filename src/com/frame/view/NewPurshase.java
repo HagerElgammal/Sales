@@ -6,11 +6,18 @@ import java.awt.*;
 
 
 public class NewPurshase extends JDialog  {
-
+    private JLabel itemNameLabel;
+    private JTextField itemNameField;
+    private JLabel itemPriceLabel;
+    private JTextField itemPriceField;
+    private JLabel countLabel;
+    private JTextField countField;
+    private JButton createItemBtn;
+    private JButton cancelItemBtn;
 private MyListener myListener ;
 
     public NewPurshase(MyFrame frame){
-        super(frame);
+
 
         setLayout(new FlowLayout());
         itemNameLabel = new JLabel("Item Name");
@@ -28,12 +35,12 @@ private MyListener myListener ;
 
         createItemBtn = new JButton("Create New Item");
         createItemBtn.setActionCommand("createNewItem");
-        createItemBtn.addActionListener(myListener);
+        createItemBtn.addActionListener(frame.getMyListener());
         add(createItemBtn);
 
         cancelItemBtn = new JButton("Cancel Item");
         cancelItemBtn.setActionCommand("cancelItem");
-        cancelItemBtn.addActionListener(myListener);
+        cancelItemBtn.addActionListener(frame.getMyListener());
         add(cancelItemBtn);
 
 
@@ -44,16 +51,10 @@ private MyListener myListener ;
         setResizable(false);
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        pack();
     }
 
-    private JLabel itemNameLabel;
-    private JTextField itemNameField;
-    private JLabel itemPriceLabel;
-    private JTextField itemPriceField;
-    private JLabel countLabel;
-    private JTextField countField;
-    private JButton createItemBtn;
-    private JButton cancelItemBtn;
+
 
     public JTextField getItemNameField() {
         return itemNameField;
