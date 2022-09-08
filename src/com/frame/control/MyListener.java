@@ -61,12 +61,8 @@ public class MyListener implements ActionListener, ListSelectionListener {
                 deleteInvoice();
                 break;
 
-            case "Cancel":
-                cancel();
-                break;
-
-            case "Save":
-                save();
+            case "Delete Item":
+                deleteItem();
                 break;
 
             case"Create Item":
@@ -251,10 +247,7 @@ public class MyListener implements ActionListener, ListSelectionListener {
     }
 
 
-    private void save() {
-    }
-
-    private void cancel() {
+    private void deleteItem() {
 
     }
     private void create() {

@@ -21,8 +21,8 @@ public class MyFrame extends JFrame  {
     private JButton createNewInvoice;
     private JButton deleteInvoice;
     private JButton createItem;
-    private JButton save;
-    private JButton cancel;
+
+    private JButton deleteItem;
     private JMenuBar mb;
     private JMenu fileMenu;
     private JMenuItem loadFile;
@@ -111,8 +111,8 @@ public class MyFrame extends JFrame  {
         createNewInvoice.setActionCommand("newInv");
         createNewInvoice.addActionListener(myListener);
 
-        deleteInvoice = new JButton("Cancel");
-        deleteInvoice.setActionCommand("cancel");
+        deleteInvoice = new JButton("Delete Invoice");
+        deleteInvoice.setActionCommand("delete");
         deleteInvoice.addActionListener(myListener);
 
         createItem = new JButton("Create Item");
@@ -120,13 +120,9 @@ public class MyFrame extends JFrame  {
         createItem.addActionListener(myListener);
 
 
-        save = new JButton("Save");
-        save.setActionCommand("save");
-        save.addActionListener(myListener);
-
-        cancel = new JButton("Delete Invoice");
-        cancel.setActionCommand("delete");
-        cancel.addActionListener(myListener);
+        deleteItem = new JButton("Delete Item");
+        deleteItem.setActionCommand("deleteItem");
+        deleteItem.addActionListener(myListener);
 
 
 
@@ -183,8 +179,7 @@ public class MyFrame extends JFrame  {
         buttonPanel1.add(createNewInvoice);
         buttonPanel1.add(deleteInvoice);
         buttonPanel2.add(createItem);
-        buttonPanel2.add(save);
-        buttonPanel2.add(cancel);
+        buttonPanel2.add(deleteItem);
         buttonPanel.add(buttonPanel1);
         buttonPanel.add(buttonPanel2);
         container.add(invoicesTablePanel, BorderLayout.WEST);
@@ -195,8 +190,7 @@ public class MyFrame extends JFrame  {
         createNewInvoice = new JButton();
         deleteInvoice = new JButton();
         createItem = new JButton();
-        save = new JButton();
-        cancel = new JButton();
+        deleteItem = new JButton();
 
 
 
