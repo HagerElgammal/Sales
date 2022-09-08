@@ -89,7 +89,7 @@ public class MyFrame extends JFrame  {
 
 
         JButton deleteItem = new JButton("Delete Item");
-        deleteItem.setActionCommand("DeleteItem");
+        deleteItem.setActionCommand("Delete Item");
         deleteItem.addActionListener(myListener);
 
 

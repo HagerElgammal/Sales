@@ -44,7 +44,7 @@ public class NewCustomer extends JDialog {
         add(createBtn);
 
         JButton cancelBtn = new JButton("Cancel Customer");
-        cancelBtn.setActionCommand("cancelCustomer");
+        cancelBtn.setActionCommand("Cancel Customer");
         cancelBtn.addActionListener(frame.myListener);
         add(cancelBtn);
 

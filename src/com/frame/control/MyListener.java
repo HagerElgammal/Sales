@@ -45,12 +45,12 @@ public class MyListener implements ActionListener, ListSelectionListener {
             case "S" -> saveFile();
             case "New Inv" -> newInv();
             case "Delete" -> deleteInvoice();
-            case "Delete Item" -> DeleteItem();
+            case "Delete Item" -> deleteItem();
             case "New Item" -> createItem();
             case "CreateNewItem" -> createNewItem();
             case " CancelItem" -> cancelItem();
             case "create" -> create();
-            case "cancelCustomer" -> cancelCustomer();
+            case "Cancel Customer" -> cancelCustomer();
         }
 
 
@@ -211,7 +211,7 @@ public class MyListener implements ActionListener, ListSelectionListener {
     }
 
 
-    private void DeleteItem() {
+    private void deleteItem() {
         int selectedInvoice = frame.getInvoiceData().getSelectedRow();
         int selectedItemIndex = frame.getItemsJTable().getSelectedRow();
         if (selectedItemIndex != -1){
