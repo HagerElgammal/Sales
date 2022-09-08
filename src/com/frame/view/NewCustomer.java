@@ -1,5 +1,4 @@
 package com.frame.view;
-import com.frame.control.MyListener;
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,17 +7,9 @@ import java.awt.*;
 
 public class NewCustomer extends JDialog {
 
-    private JLabel invNumberLabel;
-    private JLabel invNumberLabel2;
-    private JLabel createNCLabel;
-    private JTextField createNCField;
-    private JLabel invDateLabel;
-    private JTextField invDateField;
-
-    private JButton createBtn;
-    private JButton cancelBtn;
-
-private MyListener myListener ;
+    private final JLabel invNumberLabel2;
+    private final JTextField createNCField;
+    private final JTextField invDateField;
 
     public NewCustomer (MyFrame frame) {
 
@@ -26,36 +17,35 @@ private MyListener myListener ;
 
         setLayout(new FlowLayout());
 
-        invNumberLabel = new JLabel("NO");
+        JLabel invNumberLabel = new JLabel("NO");
         add(invNumberLabel);
         invNumberLabel2 = new JLabel(".       ");
         add(invNumberLabel2);
 
 
-
-        createNCLabel = new JLabel("Customer Name");
+        JLabel createNCLabel = new JLabel("Customer Name");
         add(createNCLabel);
 
 
         createNCField = new JTextField(15);
         add(createNCField);
 
-        invDateLabel = new JLabel("Date        ");
+        JLabel invDateLabel = new JLabel("Date        ");
         add(invDateLabel);
 
         invDateField = new JTextField(15);
         add(invDateField);
 
 
-        createBtn = new JButton("Create New Customer");
+        JButton createBtn = new JButton("Create New Customer");
         createBtn.setActionCommand("create");
 
-        createBtn.addActionListener(frame.getMyListener());
+        createBtn.addActionListener(frame.myListener);
         add(createBtn);
 
-        cancelBtn = new JButton("Cancel Customer");
+        JButton cancelBtn = new JButton("Cancel Customer");
         cancelBtn.setActionCommand("cancelCustomer");
-        cancelBtn.addActionListener(frame.getMyListener());
+        cancelBtn.addActionListener(frame.myListener);
         add(cancelBtn);
 
 
@@ -75,29 +65,16 @@ private MyListener myListener ;
         return invNumberLabel2;
     }
 
-    public void setInvNumberLabel2(JLabel invNumberLabel2) {
-        this.invNumberLabel2 = invNumberLabel2;
-    }
-
 
     public JTextField getCreateNCField() {
 
         return createNCField;
     }
 
-    public void setCreateNCField(JTextField createNCField) {
-        this.createNCField = createNCField;
-    }
-
 
     public JTextField getInvDateField() {
         return invDateField;
     }
-
-    public void setInvDateField(JTextField invDateField) {
-        this.invDateField = invDateField;
-    }
-
 
 
 }

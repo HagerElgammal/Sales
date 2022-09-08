@@ -25,20 +25,20 @@ public InvoiceItemsTable(){}
     }
     @Override
     public String getColumnName(int  columnIndex) {
-        switch ( columnIndex) {
-            case 0 : {
+        switch (columnIndex) {
+            case 0 -> {
                 return "No.";
             }
-            case 1 : {
+            case 1 -> {
                 return "Item Name";
             }
-            case 2 : {
+            case 2 -> {
                 return "Item Price";
             }
-            case 3 : {
+            case 3 -> {
                 return "Count";
             }
-            case 4 : {
+            case 4 -> {
                 return "Item Total";
             }
         }
@@ -46,30 +46,16 @@ public InvoiceItemsTable(){}
     }
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        InvoiceItem invoiceItem = items.get(rowIndex);
-        switch (columnIndex) {
-
-            case 0:
-
-                return rowIndex + 1;
-
-            case 1:
-
-                return invoiceItem.getItemName();
-            case 2:
-
-                return invoiceItem.getItemPrice();
-
-            case 3:
-                return invoiceItem.getCount();
-
-            case 4:
-                return invoiceItem.getItemTotal();
-
-            default:
-
-                return "";
-        }
+        InvoiceItem invoiceItem ;
+        invoiceItem = items.get(rowIndex);
+        return switch (columnIndex) {
+            case 0 -> rowIndex + 1;
+            case 1 -> invoiceItem.getItemName();
+            case 2 -> invoiceItem.getItemPrice();
+            case 3 -> invoiceItem.getCount();
+            case 4 -> invoiceItem.getItemTotal();
+            default -> "";
+        };
     }
 }
 

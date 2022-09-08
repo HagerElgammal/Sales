@@ -1,6 +1,4 @@
 package com.frame.view;
-
-import com.frame.control.MyListener;
 import javax.swing.*;
 import java.awt.*;
 
@@ -14,7 +12,7 @@ public class NewPurshase extends JDialog  {
     private JTextField countField;
     private JButton createItemBtn;
     private JButton cancelItemBtn;
-private MyListener myListener ;
+
 
     public NewPurshase(MyFrame frame){
 
@@ -34,13 +32,13 @@ private MyListener myListener ;
         add(countField);
 
         createItemBtn = new JButton("Create New Item");
-        createItemBtn.setActionCommand("createNewItem");
-        createItemBtn.addActionListener(frame.getMyListener());
+        createItemBtn.setActionCommand("CreateNewItem");
+        createItemBtn.addActionListener(frame.myListener);
         add(createItemBtn);
 
         cancelItemBtn = new JButton("Cancel Item");
-        cancelItemBtn.setActionCommand("cancelItem");
-        cancelItemBtn.addActionListener(frame.getMyListener());
+        cancelItemBtn.setActionCommand("CancelItem");
+        cancelItemBtn.addActionListener(frame.myListener);
         add(cancelItemBtn);
 
 

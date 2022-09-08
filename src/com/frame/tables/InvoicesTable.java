@@ -1,24 +1,21 @@
 package com.frame.tables;
-import com.frame.control.MyListener;
-
 import javax.swing.table.AbstractTableModel;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class InvoicesTable extends AbstractTableModel {
 
-
+    private final DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
    private ArrayList<Invoice> invoiceList ;
 
    public InvoicesTable(ArrayList<Invoice> invoiceList){
         this.invoiceList = invoiceList;
     }
 
-    public List<Invoice> getInvoiceList(){
-        return invoiceList;
-    }
-public InvoicesTable(){}
+    public InvoicesTable(){}
     @Override
     public String getColumnName(int col) {
         switch (col) {
@@ -51,7 +48,7 @@ public InvoicesTable(){}
                 return invoice.getInvNu();
             }
             case 1 -> {
-                return MyListener.df.format(invoice.getInvD());
+                return df.format(invoice.getInvD());
             }
             case 2 -> {
                 return invoice.getInvCus();
