@@ -91,7 +91,6 @@ public class MyListener implements ActionListener, ListSelectionListener {
     }
 
 
-
     private void saveFile() {
         JOptionPane.showMessageDialog(frame, "Choose location for headers file...","", JOptionPane.INFORMATION_MESSAGE);
         JFileChooser chooser = new JFileChooser();
@@ -99,7 +98,7 @@ public class MyListener implements ActionListener, ListSelectionListener {
             int saV = chooser.showSaveDialog(frame);
             if (saV == JFileChooser.APPROVE_OPTION){
                 File invF = chooser.getSelectedFile();
-                FileWriter fileHW = new FileWriter(invF);
+                FileWriter fileSA = new FileWriter(invF);
                 ArrayList<Invoice> headersList = frame.getInvoiceList();
 
 
@@ -117,18 +116,13 @@ public class MyListener implements ActionListener, ListSelectionListener {
                 JOptionPane.showMessageDialog(frame, "Now choose location for invoices file...","", JOptionPane.INFORMATION_MESSAGE);
                 saV = chooser.showSaveDialog(frame);
                 File fI = chooser.getSelectedFile();
-
                 FileWriter FI = new FileWriter(fI);
-
                 headerWords = headerWords.substring(0, headerWords.length()-1);
-                fileHW.write(headerWords);
-                fileHW.close();
-
+                fileSA.write(headerWords);
+                fileSA.close();
                 records = records.substring(0, records.length()-1);
                 FI.write(records);
                 FI.close();
-
-
                 JOptionPane.showMessageDialog(frame, "Save Done","", JOptionPane.INFORMATION_MESSAGE);
                 if (headersList == null) {
                     throw new Exception("Invoices Missing");
@@ -223,7 +217,7 @@ public class MyListener implements ActionListener, ListSelectionListener {
         }
     }
 
-    private void newInv() {
+    private void create() {
         nCustomer = new NewCustomer(frame);
         nCustomer.setVisible(true);
         try {
@@ -250,7 +244,7 @@ public class MyListener implements ActionListener, ListSelectionListener {
     private void deleteItem() {
 
     }
-    private void create() {
+    private void newInv() {
         int invNo = 0;
         for (Invoice invoice : frame.getInvoiceList()){
             if (invoice.getInvNu() > invNo)
