@@ -217,7 +217,7 @@ public class MyListener implements ActionListener, ListSelectionListener {
         }
     }
 
-    private void create() {
+    private void newInv() {
         nCustomer = new NewCustomer(frame);
         nCustomer.setVisible(true);
         try {
@@ -244,7 +244,7 @@ public class MyListener implements ActionListener, ListSelectionListener {
     private void deleteItem() {
 
     }
-    private void newInv() {
+    private void create() {
         int invNo = 0;
         for (Invoice invoice : frame.getInvoiceList()){
             if (invoice.getInvNu() > invNo)

@@ -193,29 +193,6 @@ public class MyFrame extends JFrame  {
     public void setMyListener(MyListener myListener) {
         this.myListener = myListener;
     }
-    public JButton getCreateNewInvoice() {
-        return createNewInvoice;
-    }
-
-    public void setCreateNewInvoice(JButton createNewInvoice) {
-        this.createNewInvoice = createNewInvoice;
-    }
-
-    public JButton getDeleteInvoice() {
-        return deleteInvoice;
-    }
-
-    public void setDeleteInvoice(JButton deleteInvoice) {
-        this.deleteInvoice = deleteInvoice;
-    }
-
-    public JButton getCreateItem() {
-        return createItem;
-    }
-
-    public void setCreateItem(JButton createItem) {
-        this.createItem = createItem;
-    }
 
 
     public Invoice getNum(int number){
