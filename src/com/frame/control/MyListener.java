@@ -157,13 +157,17 @@ public class MyListener implements ActionListener, ListSelectionListener {
                      InvoiceItem invLine = new InvoiceItem(invoHeader, secItnam, itemPrice,itemCount);
                      invoHeader.getInvItems().add(invLine);
                  }
+
                 frame.setItems(product);
+
 
              }
              InvoicesTable inTable;
+
              inTable = new InvoicesTable( invoiceList);
              frame.setInvTable(inTable);
              frame.getInvoiceData().setModel(inTable);
+
          }
 
         } catch (NumberFormatException | ParseException | IOException e) {
@@ -173,7 +177,8 @@ public class MyListener implements ActionListener, ListSelectionListener {
     }
 
     private void deleteInvoice() {
-        int invID = frame.getInvoiceData().getSelectedRow();
+        int invID;
+        invID = frame.getInvoiceData().getSelectedRow();
         if (invID != -1){
             frame.getInvoiceList().remove(invID);
             frame.getInvoicesTable().fireTableDataChanged();
@@ -198,7 +203,7 @@ public class MyListener implements ActionListener, ListSelectionListener {
             nCustomer.getInvNumberLabel2().setText("" + invNo);
         }
         catch(Exception ep){
-            JOptionPane.showMessageDialog(frame,"Fill all the customer data first.", "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame,"Empty customer data Not Allowed.", "", JOptionPane.ERROR_MESSAGE);
             nCustomer.setVisible(false);
         }
 
@@ -274,14 +279,15 @@ public class MyListener implements ActionListener, ListSelectionListener {
         try {
             itemPrice = Double.parseDouble(itemPrAsString);
         }
-        catch (NumberFormatException exception) {
-            JOptionPane.showMessageDialog(frame, "Error parsing price.", "", JOptionPane.ERROR_MESSAGE);
+        catch (NumberFormatException exception) {  nPurshase.dispose();
+            nPurshase = null;
+            JOptionPane.showMessageDialog(frame, "Error Empty price Field Not Allowed.", "", JOptionPane.ERROR_MESSAGE);
         }
         try {
             itemCount = Integer.parseInt(countString);
         }
         catch (NumberFormatException exception){
-            JOptionPane.showMessageDialog(frame, "Error parsing count", "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "Error Empty count Field Not Allowed", "", JOptionPane.ERROR_MESSAGE);
         }
 
         if (currInvoice != -1 && nPurshase != null){
