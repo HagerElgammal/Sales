@@ -1,7 +1,8 @@
 package com.frame.tables;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
-
+import java.util.List;
+import java.util.Map;
 
 
 public class InvoiceItemsTable extends AbstractTableModel {
@@ -9,9 +10,13 @@ public class InvoiceItemsTable extends AbstractTableModel {
     private ArrayList<InvoiceItem> items;
 
     public InvoiceItemsTable(ArrayList<InvoiceItem> it) {
-        this.items =  it;
+        this.items = it;
     }
-public InvoiceItemsTable(){}
+    public List<InvoiceItem> getInvoiceItem() {
+        return items;
+    }
+    public InvoiceItemsTable() {
+    }
 
 
     @Override
@@ -23,8 +28,9 @@ public InvoiceItemsTable(){}
     public int getColumnCount() {
         return 5;
     }
+
     @Override
-    public String getColumnName(int  columnIndex) {
+    public String getColumnName(int columnIndex) {
         switch (columnIndex) {
             case 0 -> {
                 return "No.";
@@ -44,11 +50,14 @@ public InvoiceItemsTable(){}
         }
         return "";
     }
-      public boolean isCellEditable(int row, int col)
-    { return true; }
+
+    public boolean isCellEditable(int row, int col) {
+        return true;
+    }
+
     @Override
     public Object getValueAt(int data, int col) {
-        InvoiceItem invoiceItem ;
+        InvoiceItem invoiceItem;
         invoiceItem = items.get(data);
         fireTableCellUpdated(data, col);
         return switch (col) {
@@ -60,6 +69,9 @@ public InvoiceItemsTable(){}
             default -> "";
         };
     }
+
+
+
 }
 
 

@@ -22,8 +22,6 @@ public class Invoice {
 
     }
 
-
-
     // getter and setter
 
 

@@ -7,7 +7,6 @@ import com.frame.tables.InvoicesTable;
 import com.frame.view.MyFrame;
 import com.frame.view.NewCustomer;
 import com.frame.view.NewPurshase;
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -30,6 +29,7 @@ import java.util.List;
 public class MyListener implements ActionListener, ListSelectionListener {
     private final MyFrame frame;
     public static DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
       private NewCustomer nCustomer;
     private NewPurshase nPurshase;
 
@@ -193,19 +193,19 @@ public class MyListener implements ActionListener, ListSelectionListener {
     private void newInv() {
         nCustomer = new NewCustomer(frame);
         nCustomer.setVisible(true);
-//        try {
-//            int invNo = 0;
-//            for (Invoice invoice : frame.getInvoiceList()) {
-//                if (invoice.getInvNu()> invNo)
-//                    invNo = invoice.getInvNu();
-//            }
-//            invNo++;
-//            nCustomer.getInvNumberLabel2().setText("" + invNo);
-//        }
-//        catch(Exception ep){
-//            JOptionPane.showMessageDialog(frame,"Empty customer data Not Allowed.", "", JOptionPane.ERROR_MESSAGE);
-//            nCustomer.setVisible(false);
-//        }
+       try {
+            int invNo = 0;
+            for (Invoice invoice : frame.getInvoiceList()) {
+               if (invoice.getInvNu()> invNo)
+                    invNo = invoice.getInvNu();
+            }
+           invNo++;
+           nCustomer.getInvNumberLabel2().setText("" + invNo);
+       }
+       catch(Exception ep){
+           JOptionPane.showMessageDialog(frame,"Empty customer data Not Allowed.", "", JOptionPane.ERROR_MESSAGE);
+           nCustomer.setVisible(false);
+      }
 
 
     }
@@ -228,24 +228,29 @@ public class MyListener implements ActionListener, ListSelectionListener {
     }
     private void create() {
         int invNo = 0;
+
+
         for (Invoice invoice : frame.getInvoiceList()) {
             if (invoice.getInvNu() > invNo)
                 invNo = invoice.getInvNu();
         }
         invNo++;
         String cutstomerName = nCustomer.getCreateNCField().getText();
-        String date = nCustomer.getInvDateField().getText();
+        String invoDate = nCustomer.getInvDateField().getText();
         Date invDate = null;
         try {
-            invDate = df.parse(date);
+
+            invDate = df.parse(invoDate);
 
         } catch (ParseException exception) {nCustomer.dispose();nCustomer = null;
                 JOptionPane.showMessageDialog(frame, "Date format should be: dd-MM-yyyy", "", JOptionPane.ERROR_MESSAGE);
+                return;
 
             }
 
-            if (cutstomerName.length() == 0) { nCustomer.dispose();nCustomer = null;
+            if (cutstomerName.length() == 0) { nCustomer.dispose();
                 JOptionPane.showMessageDialog(frame, "Name cannot be empty", "", JOptionPane.ERROR_MESSAGE);
+
 
             } else {
                 Invoice invHeader = new Invoice(invNo, invDate, cutstomerName);
@@ -295,7 +300,7 @@ public class MyListener implements ActionListener, ListSelectionListener {
             InvoiceItem invLine = new InvoiceItem(invoiceNum, itemName, itemPrice, itemCount);
             frame.getItems().add(invLine);
             frame.getInvoicesTable().fireTableDataChanged();
-            frame.getInvoiceData().setRowSelectionInterval(currInvoice, currInvoice);
+            frame.getInvoiceData().setRowSelectionInterval (currInvoice, currInvoice);
             frame.getInvoiceItemsTable().fireTableDataChanged();
             nPurshase.dispose();
             nPurshase = null;
@@ -305,18 +310,18 @@ public class MyListener implements ActionListener, ListSelectionListener {
 
     }
     public void valueChanged(ListSelectionEvent ev) {
-        int currInv = frame.getInvoiceData().getSelectedRow();
-        if (currInv != -1) {
-            Invoice currSelectedInv;
-            currSelectedInv = frame.getInvoiceList().get(currInv);
-            ArrayList<InvoiceItem> items = currSelectedInv.getInvItems();
+        int selInv = frame.getInvoiceData().getSelectedRow();
+        if (selInv != -1) {
+            Invoice selectedInv;
+            selectedInv = frame.getInvoiceList().get(selInv);
+            ArrayList<InvoiceItem> items = selectedInv.getInvItems();
             InvoiceItemsTable invoiceItemsTable = new InvoiceItemsTable(items);
             frame.getItemsJTable().setModel(invoiceItemsTable);
             frame.setItems(items);
-            frame.getCusName().setText(currSelectedInv.getInvCus());
-            frame.getNo().setText("" + currSelectedInv.getInvNu());
-            frame.getInvDate().setText(df.format(currSelectedInv.getInvD()));
-            frame.getInvTotal().setText("" + currSelectedInv.getInvT());
+            frame.getCusName().setText(selectedInv.getInvCus());
+            frame.getNo().setText("" + selectedInv.getInvNu());
+            frame.getInvDate().setText(df.format(selectedInv.getInvD()));
+            frame.getInvTotal().setText("" + selectedInv.getInvT());
         }
-    }
+        }
 }

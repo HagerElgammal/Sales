@@ -104,8 +104,8 @@ public class MyFrame extends JFrame  {
 
         itemsTable = new JTable();
         itemsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        itemsTable.getSelectionModel().addListSelectionListener(myListener);
         itemsTable.setCellSelectionEnabled(true);
+
         itemsTable.setModel(new DefaultTableModel(
                 new Object [][] {},
                 new String [] {"No.", "Item Name", "Item Price", "Count", "Item Total"} ));
@@ -205,6 +205,7 @@ public class MyFrame extends JFrame  {
     public JTable getItemsJTable() {
         return itemsTable;
     }
+
 
 
 }
