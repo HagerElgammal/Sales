@@ -193,19 +193,19 @@ public class MyListener implements ActionListener, ListSelectionListener {
     private void newInv() {
         nCustomer = new NewCustomer(frame);
         nCustomer.setVisible(true);
-        try {
-            int invNo = 0;
-            for (Invoice invoice : frame.getInvoiceList()) {
-                if (invoice.getInvNu()> invNo)
-                    invNo = invoice.getInvNu();
-            }
-            invNo++;
-            nCustomer.getInvNumberLabel2().setText("" + invNo);
-        }
-        catch(Exception ep){
-            JOptionPane.showMessageDialog(frame,"Empty customer data Not Allowed.", "", JOptionPane.ERROR_MESSAGE);
-            nCustomer.setVisible(false);
-        }
+//        try {
+//            int invNo = 0;
+//            for (Invoice invoice : frame.getInvoiceList()) {
+//                if (invoice.getInvNu()> invNo)
+//                    invNo = invoice.getInvNu();
+//            }
+//            invNo++;
+//            nCustomer.getInvNumberLabel2().setText("" + invNo);
+//        }
+//        catch(Exception ep){
+//            JOptionPane.showMessageDialog(frame,"Empty customer data Not Allowed.", "", JOptionPane.ERROR_MESSAGE);
+//            nCustomer.setVisible(false);
+//        }
 
 
     }
