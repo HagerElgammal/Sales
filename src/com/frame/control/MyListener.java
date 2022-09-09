@@ -48,7 +48,7 @@ public class MyListener implements ActionListener, ListSelectionListener {
             case "Delete Item" -> deleteItem();
             case "New Item" -> createItem();
             case "CreateNewItem" -> createNewItem();
-            case " CancelItem" -> cancelItem();
+            case "Cancel Item" -> cancelItem();
             case "create" -> create();
             case "Cancel Customer" -> cancelCustomer();
         }
@@ -233,16 +233,15 @@ public class MyListener implements ActionListener, ListSelectionListener {
         Date invDate = null;
         try {
             invDate = df.parse(date);
-         
-                DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                df.setLenient(false);
-                df.parse(date);
-            } catch (ParseException exception) {
+
+        } catch (ParseException exception) {nCustomer.dispose();nCustomer = null;
                 JOptionPane.showMessageDialog(frame, "Date format should be: dd-MM-yyyy", "", JOptionPane.ERROR_MESSAGE);
+
             }
 
-            if (cutstomerName.length() == 0) {
+            if (cutstomerName.length() == 0) { nCustomer.dispose();nCustomer = null;
                 JOptionPane.showMessageDialog(frame, "Name cannot be empty", "", JOptionPane.ERROR_MESSAGE);
+
             } else {
                 Invoice invHeader = new Invoice(invNo, invDate, cutstomerName);
                 frame.getInvoiceList().add(invHeader);

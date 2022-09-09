@@ -37,7 +37,7 @@ public class NewPurshase extends JDialog  {
         add(createItemBtn);
 
         cancelItemBtn = new JButton("Cancel Item");
-        cancelItemBtn.setActionCommand("CancelItem");
+        cancelItemBtn.setActionCommand("Cancel Item");
         cancelItemBtn.addActionListener(frame.myListener);
         add(cancelItemBtn);
 

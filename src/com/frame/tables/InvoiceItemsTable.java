@@ -44,12 +44,15 @@ public InvoiceItemsTable(){}
         }
         return "";
     }
+      public boolean isCellEditable(int row, int col)
+    { return true; }
     @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
+    public Object getValueAt(int data, int col) {
         InvoiceItem invoiceItem ;
-        invoiceItem = items.get(rowIndex);
-        return switch (columnIndex) {
-            case 0 -> rowIndex + 1;
+        invoiceItem = items.get(data);
+        fireTableCellUpdated(data, col);
+        return switch (col) {
+            case 0 -> data + 1;
             case 1 -> invoiceItem.getItemName();
             case 2 -> invoiceItem.getItemPrice();
             case 3 -> invoiceItem.getCount();

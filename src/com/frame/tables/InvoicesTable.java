@@ -38,11 +38,13 @@ public class InvoicesTable extends AbstractTableModel {
     public int getColumnCount() {
         return 4;
     }
-
+    public boolean isCellEditable(int row, int col)
+    { return true; }
     @Override
     public Object getValueAt(int data, int col) {
         Invoice invoice;
         invoice = invoiceList.get(data);
+        fireTableCellUpdated(data, col);
         switch (col) {
             case 0 -> {
                 return invoice.getInvNu();

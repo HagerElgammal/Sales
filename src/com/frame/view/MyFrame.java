@@ -103,6 +103,7 @@ public class MyFrame extends JFrame  {
 
 
         itemsTable = new JTable();
+        itemsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         itemsTable.getSelectionModel().addListSelectionListener(myListener);
         itemsTable.setCellSelectionEnabled(true);
         itemsTable.setModel(new DefaultTableModel(
